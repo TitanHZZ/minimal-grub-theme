@@ -12,8 +12,8 @@ GRUB_GFXMODE := 1920x1080,auto
 help: ## Show this help
 	@echo "${NAMESPACE}/${NAME}"
 	@echo
-	@fgrep -h "##" $(MAKEFILE_LIST) | \
-	fgrep -v fgrep | sed -e 's/## */##/' | column -t -s##
+	@grep -F -h "##" $(MAKEFILE_LIST) | \
+	grep -F -v grep -F | sed -e 's/## */##/' | column -t -s##
 
 ##
 
