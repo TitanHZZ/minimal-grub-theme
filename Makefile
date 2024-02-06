@@ -8,6 +8,7 @@ THEME_NAME := minimal
 THEME_DIR := /boot/grub/themes
 GRUB_CONFIG := /etc/default/grub
 GRUB_GFXMODE := 1920x1080,auto
+GRUB_TIMEOUT := -1
 
 help: ## Show this help
 	@echo "${NAMESPACE}/${NAME}"
@@ -25,12 +26,19 @@ install: ## Install theme
 	@sudo mkdir -p ${THEME_DIR}
 	@sudo rm -rf ${THEME_DIR}/${THEME_NAME}
 	@sudo cp -rf ./${THEME_NAME} ${THEME_DIR}
-	
+
 	@echo "INFO: Setting 'GRUB_GFXMODE' to '${GRUB_GFXMODE}'"
 	@if grep "GRUB_GFXMODE=" ${GRUB_CONFIG} 2>&1 >/dev/null; then \
 		sudo sed -i "s|.*GRUB_GFXMODE=.*|GRUB_GFXMODE=${GRUB_GFXMODE}|" ${GRUB_CONFIG}; \
 	else \
 		sudo echo "GRUB_GFXMODE=${GRUB_GFXMODE}" | sudo tee -a ${GRUB_CONFIG}; \
+	fi
+
+	@echo "INFO: Setting 'GRUB_TIMEOUT' to '${GRUB_TIMEOUT}'"
+	@if grep "GRUB_TIMEOUT=" ${GRUB_CONFIG} 2>&1 >/dev/null; then \
+		sudo sed -i "s|.*GRUB_TIMEOUT=.*|GRUB_TIMEOUT=\"${GRUB_TIMEOUT}\"|" ${GRUB_CONFIG}; \
+	else \
+		sudo echo "GRUB_TIMEOUT=${GRUB_TIMEOUT}" | sudo tee -a ${GRUB_CONFIG}; \
 	fi
 
 	@echo "INFO: Setting 'GRUB_THEME' to '${THEME_DIR}/${THEME_NAME}/theme.txt'"
