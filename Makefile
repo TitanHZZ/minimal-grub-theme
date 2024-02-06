@@ -1,7 +1,7 @@
 .PHONY: install uninstall emulator/start emulator/version
 .DEFAULT_GOAL := help
 
-NAMESPACE := tomdewildt
+NAMESPACE := titanhzz
 NAME := minimal-grub-theme
 
 THEME_NAME := minimal
@@ -41,7 +41,7 @@ install: ## Install theme
 	fi
 
 	@echo "INFO: Updating grub"
-	@sudo update-grub
+	@sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 uninstall: ## Uninstall theme
 	@echo "INFO: Removing '${THEME_NAME}' from '${THEME_DIR}'"
@@ -53,7 +53,7 @@ uninstall: ## Uninstall theme
 	fi
 
 	@echo "INFO: Updating grub"
-	@sudo update-grub
+	@sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 ##
 
